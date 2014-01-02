@@ -1,6 +1,7 @@
 Task to follow and their pomodoros:
  ☐ setup the repo (install https://github.com/ipython/ipython) + .codeintel + sublime project
  ☐ create random data (with some constraints)
+ ☐ design the display based on multiplication of some core size (100px)
  ☐ inject javascript that will be used in the notebook (d3.js) (http://nbviewer.ipython.org/github/ipython/ipython-in-depth/blob/master/notebooks/05%20-%20Notebook%20and%20javascript%20extension.ipynb)
  ☐ send df to js and draw something primitive
  ☐ create class RichPandas(df) that will have __repr_html__ (http://nbviewer.ipython.org/github/ipython/ipython/blob/master/examples/notebooks/Custom%20Display%20Logic.ipynb)
