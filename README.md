@@ -9,3 +9,5 @@ http://jakevdp.github.io/blog/2013/06/01/ipython-notebook-javascript-python-comm
 also this might be helpful:
 https://github.com/ellisonbg/talk-pydata-nyc2013/
 
+To start notebook please use:
+ipython notebook --profile-dir='../profile'

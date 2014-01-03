@@ -1,9 +1,11 @@
 define([], function() {
 
-    function bar(data, target_id) {
+    function bar(dashboard_id, column, data, target_id) {
+console.log(column);
+
         var margin = {top: 20, right: 20, bottom: 30, left: 40},
-            width = 960 - margin.left - margin.right,
-            height = 500 - margin.top - margin.bottom;
+            width = 500 - margin.left - margin.right,
+            height = 250 - margin.top - margin.bottom;
 
         var x = d3.scale.ordinal()
             .rangeRoundBands([0, width], .1);
@@ -43,6 +45,13 @@ define([], function() {
           .style("text-anchor", "end");
           // .text("Frequency");
 
+        svg.append("text")
+                .attr("x", (width / 2))
+                .attr("y", 0)
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text(column);
+
         svg.selectAll(".bar")
             .data(data)
             .enter().append("rect")
@@ -50,7 +59,28 @@ define([], function() {
                 .attr("x", function(d) { return x(d[0]); })
                 .attr("width", x.rangeBand())
                 .attr("y", function(d) { return y(d[1]); })
-                .attr("height", function(d) { return height - y(d[1]); });
+                .attr("height", function(d) { return height - y(d[1]); })
+                .on('click', function (d, i) {
+                    var clicked = d3.select(this),
+                        selected = clicked.attr('data-selected'),
+                        prev_color,
+                        selected_color = '';
+
+                    if (!window['filter' + dashboard_id].hasOwnProperty(column)) {
+                        window['filter' + dashboard_id][column] = {};
+                    }
+                    window['filter' + dashboard_id][column][d[0]] = !selected;
+
+                    if (selected === 'true') {
+                        prev_color = clicked.attr('data-prev-bgcolor');
+                        clicked.style("fill", prev_color);
+                        clicked.attr('data-selected', false);
+                    } else {
+                        clicked.attr('data-prev-bgcolor', clicked.style('fill'));
+                        clicked.style("fill", "#FBEF99");
+                        clicked.attr('data-selected', true);
+                    }
+                });
     }
 
     window.bar = bar;

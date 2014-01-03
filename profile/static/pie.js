@@ -1,14 +1,15 @@
 define([], function() {
 
-    function pie(data, target_id) {
+    function pie(dashboard_id, column, data, target_id) {
 
-        var width = 960,
-            height = 500,
+        var width = 250,
+            height = 250,
             radius = Math.min(width, height) / 2;
 
         var color = d3.scale.ordinal()
-            .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56",
-                "#d0743c", "#ff8c00"]);
+            .range(["#3A543A", "#4F724F", "#649064", "#90D590", "#B5E3B5",
+                "#EDF8ED", "#3A4754", "#4F6072", "#4D6680", "#647A90",
+                "#90B2D5", "#B5CCE3", "#EDF2F8"]);
 
         var arc = d3.svg.arc()
             .outerRadius(radius - 10)
@@ -39,6 +40,36 @@ define([], function() {
             .attr("dy", ".35em")
             .style("text-anchor", "middle")
             .text(function(d) { return d.data[0]; });
+
+        svg.append("text")
+                .attr("x", (width / 2))
+                .attr("y", 0 - (10))
+                .attr("text-anchor", "middle")
+                .style("font-size", "16px")
+                .text(column);
+
+        svg.selectAll('.arc').selectAll('path').on('click', function (d, i) {
+            var clicked = d3.select(this),
+                selected = clicked.attr('data-selected'),
+                prev_color,
+                selected_color = '',
+                value = d3.select(clicked.node().nextSibling).text();
+
+            if (!window['filter' + dashboard_id].hasOwnProperty(column)) {
+                window['filter' + dashboard_id][column] = {};
+            }
+            window['filter' + dashboard_id][column][value] = !selected;
+
+            if (selected === 'true') {
+                prev_color = clicked.attr('data-prev-bgcolor');
+                clicked.style("fill", prev_color);
+                clicked.attr('data-selected', false);
+            } else {
+                clicked.attr('data-prev-bgcolor', clicked.style('fill'));
+                clicked.style("fill", "#FBEF99");
+                clicked.attr('data-selected', true);
+            }
+        });
     }
 
     window.pie = pie;
@@ -46,3 +77,5 @@ define([], function() {
         pie: pie
     };
 });
+
+

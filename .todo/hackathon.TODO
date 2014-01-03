@@ -5,8 +5,17 @@ Task to follow and their pomodoros:
  ✔ send df to js and draw something primitive @done (14-01-03 10:32)
  ✔ create class RichPandas(df) that will have __repr_html__ (http://nbviewer.ipython.org/github/ipython/ipython/blob/master/examples/notebooks/Custom%20Display%20Logic.ipynb) @done (14-01-03 10:32)
  ✔ customize d3.js examples @done (14-01-03 11:41)
- ☐ create code that will recognize type of chart to generate for a given column
- ☐ create sampler for big data
+ ✔ create code that will recognize type of chart to generate for a given column and plot it @done (14-01-03 14:33)
+ ✔ make charts interactive @done (14-01-03 15:41)
+ ☐ add filter to the js charts
  ☐ add js filters that will enable the  filtering of DataFrame and return filtered DataFrame
+
  ☐ design the display based on multiplication of some core size (100px)
+ ☐ create sampler for big data
+ ☐ make each charts closeable
  ☐ add full screen javascript (http://bl.ocks.org/jczaplew/4444770)
+ ☐ allow saving of the configuration
+ ☐ create a code to run the dashboard independetly (reading from csv)
+ ☐ add dynamical legend to allow even more filtering
+ ☐ add parallel chart to draw numerical data
+

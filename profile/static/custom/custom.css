@@ -39,3 +39,9 @@ This will always be an empty file in IPython
   display: none;
 }
 */
+
+.brush .extent {
+    stroke: #fff;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+}
