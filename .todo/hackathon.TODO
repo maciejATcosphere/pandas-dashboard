@@ -1,10 +1,12 @@
 Task to follow and their pomodoros:
- ☐ setup the repo (install https://github.com/ipython/ipython) + .codeintel + sublime project
- ☐ create random data (with some constraints)
- ☐ design the display based on multiplication of some core size (100px)
- ☐ inject javascript that will be used in the notebook (d3.js) (http://nbviewer.ipython.org/github/ipython/ipython-in-depth/blob/master/notebooks/05%20-%20Notebook%20and%20javascript%20extension.ipynb)
- ☐ send df to js and draw something primitive
- ☐ create class RichPandas(df) that will have __repr_html__ (http://nbviewer.ipython.org/github/ipython/ipython/blob/master/examples/notebooks/Custom%20Display%20Logic.ipynb)
+ ✔ setup the repo (install https://github.com/ipython/ipython) + .codeintel + sublime project @done (14-01-03 09:11)
+ ✔ create random data (with some constraints) @done (14-01-03 09:24)
+ ✔ inject javascript that will be used in the notebook (d3.js) (http://nbviewer.ipython.org/github/ipython/ipython-in-depth/blob/master/notebooks/05%20-%20Notebook%20and%20javascript%20extension.ipynb) @done (14-01-03 09:35)
+ ✔ send df to js and draw something primitive @done (14-01-03 10:32)
+ ✔ create class RichPandas(df) that will have __repr_html__ (http://nbviewer.ipython.org/github/ipython/ipython/blob/master/examples/notebooks/Custom%20Display%20Logic.ipynb) @done (14-01-03 10:32)
+ ✔ customize d3.js examples @done (14-01-03 11:41)
  ☐ create code that will recognize type of chart to generate for a given column
+ ☐ create sampler for big data
+ ☐ add js filters that will enable the  filtering of DataFrame and return filtered DataFrame
+ ☐ design the display based on multiplication of some core size (100px)
  ☐ add full screen javascript (http://bl.ocks.org/jczaplew/4444770)
- ☐ add js filters that will enable the  filtering of DataFrame

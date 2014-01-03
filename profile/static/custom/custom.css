@@ -1,0 +1,41 @@
+/*
+Placeholder for custom user CSS
+
+mainly to be overridden in profile/static/custom/custom.css
+
+This will always be an empty file in IPython
+*/
+/* pie chart */
+.arc path {
+    stroke: #fff;
+}
+
+/* area chart */
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.area {
+    fill: steelblue;
+}
+
+/* bar chart */
+.bar {
+    fill: steelblue;
+}
+
+/*.bar:hover {
+    fill: brown;
+}
+*/
+.axis {
+    font: 10px sans-serif;
+}
+
+/*.x.axis path {
+  display: none;
+}
+*/
