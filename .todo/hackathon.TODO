@@ -7,15 +7,20 @@ Task to follow and their pomodoros:
  ✔ customize d3.js examples @done (14-01-03 11:41)
  ✔ create code that will recognize type of chart to generate for a given column and plot it @done (14-01-03 14:33)
  ✔ make charts interactive @done (14-01-03 15:41)
+ ☐ make all charts updatable
+ ☐ add full screen javascript (http://bl.ocks.org/jczaplew/4444770)
  ☐ add filter to the js charts
  ☐ add js filters that will enable the  filtering of DataFrame and return filtered DataFrame
-
- ☐ design the display based on multiplication of some core size (100px)
- ☐ create sampler for big data
  ☐ make each charts closeable
- ☐ add full screen javascript (http://bl.ocks.org/jczaplew/4444770)
  ☐ allow saving of the configuration
+
+ ☐ create sampler for big data
+ ☐ make sure that pie and bar chart are sorted
+
  ☐ create a code to run the dashboard independetly (reading from csv)
  ☐ add dynamical legend to allow even more filtering
+ ☐ add drag&drop option for variables and scatter plot, pie chart (where value is not count)
  ☐ add parallel chart to draw numerical data
+ ☐ provide code for paralellisation of pandas
+ ☐ HTM could observe what kind of visualiazation people are using and help them choose the best
 

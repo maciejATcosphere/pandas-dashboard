@@ -1,86 +1,99 @@
 define([], function() {
 
-    function area(dashboard_id, column, data, target_id) {
-        var margin = {top: 20, right: 20, bottom: 30, left: 50},
-            width = 500 - margin.left - margin.right,
-            height = 250 - margin.top - margin.bottom;
+    var Area = function (dashboard_id, column, target_id) {
+        this.dashboard_id = dashboard_id;
+        this.column = column;
 
-        var x = d3.scale.linear()
-            .range([0, width]);
+        this.margin = {top: 20, right: 20, bottom: 30, left: 50};
+        this.width = 500 - this.margin.left - this.margin.right;
+        this.height = 250 - this.margin.top - this.margin.bottom;
 
-        var y = d3.scale.linear()
-            .range([height, 0]);
+        this.x = d3.scale.linear()
+            .range([0, this.width]);
 
-        var xAxis = d3.svg.axis()
-            .scale(x)
+        this.y = d3.scale.linear()
+            .range([this.height, 0]);
+
+        this.xAxis = d3.svg.axis()
+            .scale(this.x)
             .orient("bottom");
 
-        var yAxis = d3.svg.axis()
-            .scale(y)
+        this.yAxis = d3.svg.axis()
+            .scale(this.y)
             .orient("left");
 
-        var area = d3.svg.area()
-            .x(function(d) { return x(d[0]); })
-            .y0(height)
-            .y1(function(d) { return y(d[1]); });
+        var that = this;
+        this.area = d3.svg.area()
+            .x(function(d) { return that.x(d[0]); })
+            .y0(this.height)
+            .y1(function(d) { return that.y(d[1]); });
 
-        var svg = d3.select("#" + target_id)
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
+        this.svg = d3.select("#" + target_id)
+            .attr("width", this.width + this.margin.left + this.margin.right)
+            .attr("height", this.height + this.margin.top + this.margin.bottom)
             .append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                .attr("transform", "translate({x}, {y})"
+                    .replace('{x}', this.margin.left)
+                    .replace('{y}', this.margin.top));
 
-        x.domain(d3.extent(data, function(d) { return d[0]; }));
-        y.domain([0, d3.max(data, function(d) { return d[1]; })]);
-
-        svg.append("text")
-                .attr("x", (width / 2))
+        this.svg.append("text")
+                .attr("x", (this.width / 2))
                 .attr("y", 0)
                 .attr("text-anchor", "middle")
                 .style("font-size", "16px")
                 .text(column);
 
-        svg.append("path")
-            .datum(data)
-            .attr("class", "area")
-            .attr("d", area);
+        this.svg.append("g")
+            .attr("class", "x-axis axis")
+            .attr("transform", "translate(0," + this.height + ")");
 
-        svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
-
-        var brush = d3.svg.brush()
-            .x(x)
-            .on("brush", brushed);
-
-        svg.append("g")
-              .attr("class", "x brush")
-              .call(brush)
-            .selectAll("rect")
-              .attr("y", -6)
-              .attr("height", height + 7);
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
+        this.svg.append("g")
+            .attr("class", "y-axis axis")
+            // .call(yAxis)
             .append("text")
                 .attr("transform", "rotate(-90)")
                 .attr("y", 6)
                 .attr("dy", ".71em")
                 .style("text-anchor", "end");
-                // .text("Price ($)");
 
+        this.svg.append("g")
+              .attr("class", "x-brush brush");
+
+        this.path = this.svg
+            .append("path")
+            .attr('class', 'area');
+    };
+
+    Area.prototype.draw = function (data) {
         function brushed() {
-            // x.domain(brush.empty() ? x.domain() : brush.extent());
-            // focus.select("path").attr("d", area);
-            // focus.select(".x.axis").call(xAxis);
-            window['filter' + dashboard_id][column] = brush.extent();
+            var filter = 'filter' + this.dashboard_id;
+            window[filter][column] = {
+                "type": "range", "criteria": this.brush.extent()};
         }
-    }
 
-    window.area = area;
+        var that = this;
+        this.x.domain(d3.extent(data, function(d) { return d[0]; }));
+        this.y.domain([0, d3.max(data, function(d) { return d[1]; })]);
+
+        this.path
+            .datum(data)
+            .transition().duration(750)
+            .attr("d", this.area);
+
+        this.brush = d3.svg.brush()
+            .x(that.x)
+            .on("brush", brushed);
+
+        this.svg.select("g.x-axis").call(this.xAxis);
+        this.svg.select("g.y-axis").call(this.yAxis);
+        this.svg.select("g.x-brush").call(this.brush)
+            .selectAll("rect")
+            .attr("y", 15)
+            .attr("height", this.height - 7);
+    };
+
+    window.Area = Area;
     return {
-        area: area
+        Area: Area
     };
 });
