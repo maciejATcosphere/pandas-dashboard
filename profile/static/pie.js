@@ -1,5 +1,5 @@
-define([], function() {
-
+//define([], function() {
+(function() {
     var Pie = function (dashboard_id, column, target_id) {
         this.dashboard_id = dashboard_id;
         this.column = column;
@@ -11,7 +11,7 @@ define([], function() {
         this.color = d3.scale.category10();
 
         this.arc = d3.svg.arc()
-            .outerRadius(this.radius - 10)
+            .outerRadius(this.radius - 20)
             .innerRadius(0);
 
         this.pie = d3.layout.pie()
@@ -25,9 +25,9 @@ define([], function() {
                     .replace('{x}', this.width / 2)
                     .replace('{y}', this.height / 2));
 
-        this.svg.append("text")
+        d3.select("#" + target_id).append("text")
                 .attr("x", (this.width / 2))
-                .attr("y", 0 - (10))
+                .attr("y", 13)
                 .attr("text-anchor", "middle")
                 .style("font-size", "16px")
                 .text(this.column);
@@ -45,6 +45,21 @@ define([], function() {
         }
 
         this.paths = this.svg.selectAll("path").data(this.pie(data));
+
+        // revert color to original and data attrs
+        this.paths
+            .style("fill", function (d, i) {
+                var path = d3.select(this),
+                    prev_bgcolor = path.attr('data-prev-bgcolor');
+
+                if (prev_bgcolor) {
+                    return prev_bgcolor;
+                }
+                return path.style('fill');
+            })
+            .attr('data-selected', false)
+            .attr('data-label', function (d, i) { return data[i][0]; });
+
         this.paths.enter()
             .append("path")
                 .attr("d", this.arc)
@@ -65,7 +80,8 @@ define([], function() {
                         window[filter][column] = {
                             'type': 'in', 'criteria': {}};
                     }
-                    window[filter][column]['criteria'][value] = !selected;
+                    window[filter][column]['criteria'][value] = (
+                        selected !== 'true');
 
                     if (selected === 'true') {
                         prev_color = clicked.attr('data-prev-bgcolor');
@@ -91,12 +107,22 @@ define([], function() {
         this.paths.exit().remove();
         this.labels.exit().remove();
 
-        this.paths.transition().duration(750).attrTween("d", arcTween);
-        this.labels.transition().duration(750).attr("transform", function(d) {
-            d.innerRadius = 0;
-            d.outerRadius = that.radius;
-            return "translate(" + that.arc.centroid(d) + ")";
-        });
+        this.paths
+            .transition()
+            .duration(750)
+            .attrTween("d", arcTween);
+
+        this.labels
+            .transition()
+            .duration(750)
+            .text(function(d) { return d.data[0]; })
+            .attr("transform", function(d) {
+                d.innerRadius = 0;
+                d.outerRadius = that.radius;
+                return "translate(" + that.arc.centroid(d) + ")";
+            });
+
+        return this;
     };
 
     // Pie.prototype.update = function (data) {
@@ -136,6 +162,4 @@ define([], function() {
     return {
         Pie: Pie
     };
-});
-
-
+})();

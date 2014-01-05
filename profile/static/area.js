@@ -1,5 +1,5 @@
-define([], function() {
-
+// define([], function() {
+(function() {
     var Area = function (dashboard_id, column, target_id) {
         this.dashboard_id = dashboard_id;
         this.column = column;
@@ -56,22 +56,23 @@ define([], function() {
                 .attr("dy", ".71em")
                 .style("text-anchor", "end");
 
-        this.svg.append("g")
-              .attr("class", "x-brush brush");
-
         this.path = this.svg
             .append("path")
             .attr('class', 'area');
+
+        this.svg.append("g")
+              .attr("class", "x-brush brush");
     };
 
     Area.prototype.draw = function (data) {
+        var that = this;
+
         function brushed() {
-            var filter = 'filter' + this.dashboard_id;
-            window[filter][column] = {
-                "type": "range", "criteria": this.brush.extent()};
+            var filter = 'filter' + that.dashboard_id;
+            window[filter][that.column] = {
+                "type": "range", "criteria": that.brush.extent()};
         }
 
-        var that = this;
         this.x.domain(d3.extent(data, function(d) { return d[0]; }));
         this.y.domain([0, d3.max(data, function(d) { return d[1]; })]);
 
@@ -88,12 +89,14 @@ define([], function() {
         this.svg.select("g.y-axis").call(this.yAxis);
         this.svg.select("g.x-brush").call(this.brush)
             .selectAll("rect")
-            .attr("y", 15)
-            .attr("height", this.height - 7);
+            .attr("y", -6)
+            .attr("height", this.height + 7);
+
+        return this;
     };
 
     window.Area = Area;
     return {
         Area: Area
     };
-});
+})();

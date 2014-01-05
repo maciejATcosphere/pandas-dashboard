@@ -7,17 +7,21 @@ Task to follow and their pomodoros:
  ✔ customize d3.js examples @done (14-01-03 11:41)
  ✔ create code that will recognize type of chart to generate for a given column and plot it @done (14-01-03 14:33)
  ✔ make charts interactive @done (14-01-03 15:41)
- ☐ make all charts updatable
- ☐ add full screen javascript (http://bl.ocks.org/jczaplew/4444770)
- ☐ add filter to the js charts
- ☐ add js filters that will enable the  filtering of DataFrame and return filtered DataFrame
- ☐ make each charts closeable
+ ✔ make all charts updatable @done (14-01-05 10:46)
+ ✔ add js filters that will enable the  filtering of DataFrame and return filtered DataFrame @done (14-01-05 10:46)
+ ✔ make sure that pie and bar chart are sorted @done (14-01-05 17:12)
+ ✔ let dashboard be savable @done (14-01-05 17:12)
+ ✔ fix color and data-attrs update for pie and bar @done (14-01-05 17:14)
+ ✔ fix title for pie chart @done (14-01-05 17:18)
+ ✔ make sure all works fine for labels in case of pie and bar @done (14-01-05 19:10)
+ ☐ fix repeatable filtering
+
  ☐ allow saving of the configuration
+ ☐ create show and tell notebook
 
+ ☐ add full screen javascript (http://bl.ocks.org/jczaplew/4444770)
+ ☐ make each charts closeable
  ☐ create sampler for big data
- ☐ make sure that pie and bar chart are sorted
-
- ☐ create a code to run the dashboard independetly (reading from csv)
  ☐ add dynamical legend to allow even more filtering
  ☐ add drag&drop option for variables and scatter plot, pie chart (where value is not count)
  ☐ add parallel chart to draw numerical data

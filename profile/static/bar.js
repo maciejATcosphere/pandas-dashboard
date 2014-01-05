@@ -1,6 +1,6 @@
 
-define([], function() {
-
+// define([], function() {
+(function () {
     var BASE = 1000;
 
     function norm(value) {
@@ -74,6 +74,18 @@ define([], function() {
 
         bars = this.svg.selectAll(".bar").data(data);
 
+        // revert color to original and data attrs
+        bars.style("fill", function (d, i) {
+                var bar = d3.select(this),
+                    prev_bgcolor = bar.attr('data-prev-bgcolor');
+
+                if (prev_bgcolor) {
+                    return prev_bgcolor;
+                }
+                return bar.style('fill');
+            })
+            .attr('data-selected', false);
+
         bars.enter().append("rect")
                 .attr("class", "bar")
                 .attr("x", function(d) { return norm(that.x(d[0])); })
@@ -95,7 +107,8 @@ define([], function() {
                         window[filter][column] = {
                             'type': 'in', 'criteria': {}};
                     }
-                    window[filter][column]['criteria'][value] = !selected;
+                    window[filter][column]['criteria'][value] = (
+                        selected !== 'true');
 
                     if (selected === 'true') {
                         prev_color = clicked.attr('data-prev-bgcolor');
@@ -117,6 +130,8 @@ define([], function() {
             .attr("y", function(d) { return norm(that.y(d[1])); })
             .attr("height", function(d) {
                 return norm(that.height - that.y(d[1])); });
+
+        return this;
     };
 
 //     Bar.prototype.update = function (data) {
@@ -169,4 +184,4 @@ define([], function() {
     return {
         Bar: Bar
     };
-});
+})();
